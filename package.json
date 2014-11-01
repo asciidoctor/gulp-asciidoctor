@@ -1,13 +1,13 @@
 {
     "name": "gulp-asciidoctor",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "asciidoctor to HTML",
     "license": "MIT",
     "repository": "dongwq/gulp-asciidoctor",
     "author": {
         "name": "John Dong",
-        "email": "dongwqs@gmail.com",
-        "url": "http://itgongfu.com"
+        "email": "dongwqs@sina.com",
+        "url": "----"
     },
     "engines": {
         "node": ">=0.10.0"
@@ -20,7 +20,6 @@
     ],
     "keywords": [
         "gulpplugin",
-        "asciidoctor",
         "asciidoctor",
         "asciidoc",
         "compile",
