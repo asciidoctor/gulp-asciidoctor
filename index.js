@@ -1,4 +1,4 @@
-// PLUGIN_NAME: asciidoctor
+// PLUGIN_NAME: gulp-asciidoctor
 var through = require('through-gulp');
 var gutil = require('gulp-util');
 var asciidoctorJs = require('asciidoctor.js')();
