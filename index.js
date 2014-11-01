@@ -28,13 +28,22 @@ module.exports = function(options) {
 
         var processor = asciidoctorJs.Asciidoctor(true);
 
-        var options2 = opal.hash2(
+        //default config
+        options = options || {};
+        options.base_dir = options.base_dir || process.cwd();
+        options.safe = options.safe || 'secured';
+        options.doctype = options.doctype || 'html';
+        options.header_footer = options.header_footer || true;
+        options.attributes = options.attributes || ['showtitle'];
+
+
+        var optionsOpal = opal.hash2(
             ['base_dir', 'safe', 'doctype', 'header_footer',
                 'attributes'
             ], options);
 
         var data = processor.$convert(file.contents.toString(),
-            options2);
+            optionsOpal);
 
         file.contents = new Buffer(data);
         file.path = gutil.replaceExtension(file.path, '.html');
