@@ -32,7 +32,7 @@ module.exports = function(options) {
         options = options || {};
         options.base_dir = options.base_dir || process.cwd();
         options.safe = options.safe || 'secured';
-        options.doctype = options.doctype || 'html';
+        options.doctype = options.doctype || 'inline'; //inline,html
         options.header_footer = options.header_footer || true;
         options.attributes = options.attributes || ['showtitle'];
 

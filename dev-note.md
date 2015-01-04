@@ -62,3 +62,7 @@ if (options.attributes) {
 
 Opal.ENV['$[]=']("PWD",path.resolve());
 ```
+
+### upload to npmjs.com
+
+-	npm publish

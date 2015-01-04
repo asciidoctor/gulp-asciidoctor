@@ -1,4 +1,11 @@
 == TODO
 === Target
 === Usage
+
+- install
+npm install gulp-asciidoctor --save
+
 === Config
+
+=== ChangLog
+- v1.0.2: update to asciidoctor 1.5.2
