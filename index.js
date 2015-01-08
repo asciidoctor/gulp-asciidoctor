@@ -15,9 +15,9 @@ module.exports = function(options) {
     options.attributes = options.attributes || ['showtitle'];
 
     var optionsOpal = opal.hash2(
-      ['base_dir', 'safe', 'doctype', 'header_footer',
-          'attributes'
-      ], options);
+        ['base_dir', 'safe', 'doctype', 'header_footer',
+            'attributes'
+        ], options);
 
     // creating a stream through which each file will pass
     var stream = through(function(file, encoding, callback) {
