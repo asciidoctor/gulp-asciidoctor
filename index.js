@@ -6,17 +6,16 @@ var opal = asciidoctorJs.Opal;
 var processor = asciidoctorJs.Asciidoctor(true);
 
 module.exports = function (options) {
+    options = options || {};
+
     // default config
     var asciidoctorOptions = {};
 
-    asciidoctorOptions.base_dir = options.base_dir || process.cwd();
+    asciidoctorOptions.base_dir = options.baseDir || options.base_dir || process.cwd();
     asciidoctorOptions.safe = options.safe || 'secured';
     asciidoctorOptions.doctype = options.doctype || 'article';
     asciidoctorOptions.attributes = options.attributes || ['showtitle'];
-    asciidoctorOptions.header_footer = true;
-    if (typeof options.header_footer !== 'undefined') { // the variable is defined
-        asciidoctorOptions.header_footer = !!options.header_footer;
-    }
+    asciidoctorOptions.header_footer = (options.headerFooter === undefined ? true : options.headerFooter);
 
     var optionsOpal = opal.hash2(
         ['base_dir', 'safe', 'doctype', 'header_footer',
