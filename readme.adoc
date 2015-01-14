@@ -1,13 +1,37 @@
-== TODO
-=== Target
+== gulp-asciidoctor
+
 === Usage
 
-- install
+.Simple
+----
+gulp.pipe(asciidoctor({
+    header_footer: false,
+    attributes: ['showtitle']
+    }));
+----
+
+.Other argments
+----
+gulp.pipe(asciidoctor({
+    base_dir:'path or pwd',
+    header_footer: false,
+    safe:'secured',//
+    doctype:'article',////book,inline
+    header_footer:true, // true or false
+    attributes: ['showtitle']
+    }));
+----
+
+
+=== install
+
+----
 npm install gulp-asciidoctor --save
+----
 
-=== Config
 
-=== ChangLog
+=== Change Log
+- v1.0.6: bug fixed 
 - v1.0.5: fix asciidoctor.js default init bug (Jan/11/2015)
 - v1.0.4: bug fixed (Jan/11/2015)
 - v1.0.3: bug fixed (Jan/8/2015)
