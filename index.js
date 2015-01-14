@@ -6,21 +6,21 @@ var opal = asciidoctorJs.Opal;
 var processor = asciidoctorJs.Asciidoctor(true);
 
 module.exports = function (options) {
-    options = options || {};
 
-    // default config
+    var options = options || {};
     var asciidoctorOptions = {};
 
-    asciidoctorOptions.base_dir = options.baseDir || options.base_dir || process.cwd();
+    // default config
+    asciidoctorOptions.base_dir = options.base_dir || process.cwd();
     asciidoctorOptions.safe = options.safe || 'secured';
-    asciidoctorOptions.doctype = options.doctype || 'article';
+    asciidoctorOptions.doctype = options.doctype || 'article'; //book,inline
     asciidoctorOptions.attributes = options.attributes || ['showtitle'];
-    asciidoctorOptions.header_footer = (options.headerFooter === undefined ? true : options.headerFooter);
+    asciidoctorOptions.header_footer = (options.header_footer === undefined ?
+        true : options.header_footer);
 
     var optionsOpal = opal.hash2(
-        ['base_dir', 'safe', 'doctype', 'header_footer',
-            'attributes'
-        ], asciidoctorOptions);
+        ['base_dir', 'safe', 'doctype', 'header_footer', 'attributes'],
+        asciidoctorOptions);
 
 
     // creating a stream through which each file will pass
