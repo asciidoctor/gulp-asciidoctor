@@ -31,9 +31,13 @@ npm install gulp-asciidoctor --save
 
 
 === Change Log
-- v1.0.6: bug fixed 
+- v1.0.6: bug fixed
 - v1.0.5: fix asciidoctor.js default init bug (Jan/11/2015)
 - v1.0.4: bug fixed (Jan/11/2015)
 - v1.0.3: bug fixed (Jan/8/2015)
     * Initialize asciidoctor.js only once (Thanks https://github.com/amr[Amr Mostafa])
 - v1.0.2: update to asciidoctor 1.5.2
+
+=== TODO
+- more asciidoctor functions
+- more test case
