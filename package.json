@@ -28,11 +28,11 @@
     "html"
   ],
   "dependencies": {
-    "asciidoctor.js": "^1.5.2",
-    "gulp-util": "^3.0.1",
-    "through-gulp": "^0.3.1"
+    "asciidoctor.js": "^1.5.3-rc.3",
+    "gulp-util": "^3.0.7",
+    "through-gulp": "^0.3.8"
   },
   "devDependencies": {
-    "mocha": "*"
+    "mocha": "2.3.4"
   }
 }
