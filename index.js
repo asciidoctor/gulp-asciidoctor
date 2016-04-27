@@ -12,7 +12,9 @@ module.exports = function (options) {
 
     // default config
     asciidoctorOptions.base_dir = options.base_dir || process.cwd();
-    asciidoctorOptions.safe = options.safe || 'secured';
+    // asciidoctorOptions.safe = options.safe || 'secure'; //unsafe, safe, server or secure,
+
+    asciidoctorOptions.safe = options.safe || 'secure'; //unsafe, safe, server or secure
     asciidoctorOptions.doctype = options.doctype || 'article'; //book,inline
     asciidoctorOptions.attributes = options.attributes || ['showtitle'];
     asciidoctorOptions.header_footer = (options.header_footer === undefined ?

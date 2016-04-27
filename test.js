@@ -20,7 +20,7 @@ it('should compile asciidoctor to HTML', function (cb) {
     stream.on('end', cb);
 
     stream.write(new gutil.File({
-        path: 'fixture.md',
+        path: 'fixture.adoc',
         contents: new Buffer('*foo*')
     }));
 
@@ -38,7 +38,7 @@ it('should run ok without args', function (cb) {
     stream.on('end', cb);
 
     stream.write(new gutil.File({
-        path: 'fixture.md',
+        path: 'fixture.adoc',
         contents: new Buffer('*foo*')
     }));
 
@@ -63,7 +63,7 @@ it('test case without header_footer', function (cb) {
     stream.on('end', cb);
 
     stream.write(new gutil.File({
-        path: 'fixture.md',
+        path: 'fixture.adoc',
         contents: new Buffer('*foo*')
     }));
 
@@ -88,9 +88,42 @@ it('test case with header_footer', function (cb) {
     stream.on('end', cb);
 
     stream.write(new gutil.File({
-        path: 'fixture.md',
+        path: 'fixture.adoc',
         contents: new Buffer('*foo*')
     }));
 
     stream.end();
 });
+
+
+
+// it('should include works ok', function (cb) {
+//     var stream = asciidoctor({
+//         doctype: 'inline',
+//         safe: 'server',
+//         attributes: ['showtitle']
+//     });
+
+//     stream.once('data', function (file) {
+
+//         console.log(file.contents.toString());
+
+//         assert.equal(file.relative, 'fixture.html');
+//         assert.equal(file.contents.toString(),
+//             '<strong>foo</strong>'
+//         );
+
+
+
+//     });
+
+//     stream.on('end', cb);
+
+//     stream.write(new gutil.File({
+//         path: 'fixture.adoc',
+//         contents: new Buffer(
+//             '*foo*  \n\r include::dev-note.md[]\n\r')
+//     }));
+
+//     stream.end();
+// });

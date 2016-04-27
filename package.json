@@ -1,6 +1,6 @@
 {
   "name": "gulp-asciidoctor",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "asciidoctor to HTML",
   "license": "MIT",
   "repository": "dongwq/gulp-asciidoctor",
@@ -28,9 +28,10 @@
     "html"
   ],
   "dependencies": {
-    "asciidoctor.js": "^1.5.3-rc.3",
+    "asciidoctor.js": "^1.5.5-1",
     "gulp-util": "^3.0.7",
-    "through-gulp": "^0.3.8"
+    "mocha": "^2.4.5",
+    "through-gulp": "^0.5.0"
   },
   "devDependencies": {
     "mocha": "2.3.4"

@@ -31,6 +31,7 @@ npm install gulp-asciidoctor --save
 
 
 === Change Log
+- v1.0.8: upgrade asciidoctor.js to version 1.5.5-1 and other deps to latest.
 - v1.0.7: clean dependences(remove gulp and gulp-debug). 
 - v1.0.6: bug fixed
 - v1.0.5: fix asciidoctor.js default init bug (Jan/11/2015)
@@ -42,3 +43,4 @@ npm install gulp-asciidoctor --save
 === TODO
 - more asciidoctor functions
 - more test case
+
