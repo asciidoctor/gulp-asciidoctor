@@ -3,23 +3,24 @@
 === Usage
 
 .Simple
+[source,javascript]
 ----
 gulp.pipe(asciidoctor({
-    header_footer: false,
-    attributes: ['showtitle']
-    }));
+  header_footer: false,
+  attributes: ['showtitle']
+}));
 ----
 
 .Other argments
+[source,javascript]
 ----
 gulp.pipe(asciidoctor({
-    base_dir:'path or pwd',
-    header_footer: false,
-    safe:'secured',//
-    doctype:'article',////book,inline
-    header_footer:true, // true or false
-    attributes: ['showtitle']
-    }));
+  header_footer: false,
+  safe: 'secure', // unsafe, safe, server or secure
+  doctype: 'article', // book, inline
+  header_footer: true, // true or false
+  attributes: ['showtitle']
+}));
 ----
 
 
