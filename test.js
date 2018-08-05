@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert');
-var gutil = require('gulp-util');
+var Vinyl = require('vinyl');
 var asciidoctor = require('./');
 
 it('should compile asciidoctor to HTML', function (cb) {
@@ -19,7 +19,7 @@ it('should compile asciidoctor to HTML', function (cb) {
 
     stream.on('end', cb);
 
-    stream.write(new gutil.File({
+    stream.write(new Vinyl({
         path: 'fixture.adoc',
         contents: new Buffer('*foo*')
     }));
@@ -37,7 +37,7 @@ it('should run ok without args', function (cb) {
 
     stream.on('end', cb);
 
-    stream.write(new gutil.File({
+    stream.write(new Vinyl({
         path: 'fixture.adoc',
         contents: new Buffer('*foo*')
     }));
@@ -62,7 +62,7 @@ it('test case without header_footer', function (cb) {
 
     stream.on('end', cb);
 
-    stream.write(new gutil.File({
+    stream.write(new Vinyl({
         path: 'fixture.adoc',
         contents: new Buffer('*foo*')
     }));
@@ -87,7 +87,7 @@ it('test case with header_footer', function (cb) {
 
     stream.on('end', cb);
 
-    stream.write(new gutil.File({
+    stream.write(new Vinyl({
         path: 'fixture.adoc',
         contents: new Buffer('*foo*')
     }));
@@ -119,7 +119,7 @@ it('test case with header_footer', function (cb) {
 
 //     stream.on('end', cb);
 
-//     stream.write(new gutil.File({
+//     stream.write(new Vinyl({
 //         path: 'fixture.adoc',
 //         contents: new Buffer(
 //             '*foo*  \n\r include::dev-note.md[]\n\r')

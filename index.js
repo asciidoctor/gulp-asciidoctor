@@ -1,6 +1,7 @@
 // PLUGIN_NAME: gulp-asciidoctor
 var through = require('through-gulp');
-var gutil = require('gulp-util');
+var PluginError = require('plugin-error');
+var replaceExt = require('replace-ext');
 var asciidoctor = require('asciidoctor.js')();
 
 module.exports = function (options) {
@@ -24,7 +25,7 @@ module.exports = function (options) {
         }
 
         if (file.isStream()) {
-            callback(new gutil.PluginError('gulp-asciidoctor',
+            callback(new PluginError('gulp-asciidoctor',
                 'Streaming not supported'));
             return;
         }
@@ -40,7 +41,7 @@ module.exports = function (options) {
             asciidoctorOptions);
 
         file.contents = new Buffer(data);
-        file.path = gutil.replaceExtension(file.path, '.html');
+        file.path = replaceExt(file.path, '.html');
 
         callback(null, file);
 
