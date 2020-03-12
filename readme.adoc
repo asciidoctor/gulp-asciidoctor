@@ -32,6 +32,7 @@ npm install gulp-asciidoctor --save
 
 
 === Change Log
+- V2.1.1: upgrade to asciidoctor 2.1.1, mocha 7.1.0 and replaced gulp-util with replace-ext and plugin-error
 - v1.5.5-4: upgrade asciidoctor.js to version 1.5.5-4 and use version consistent with asciidoctor.js.
 - v1.0.8: upgrade asciidoctor.js to version 1.5.5-1 and other deps to latest.
 - v1.0.7: clean dependences(remove gulp and gulp-debug). 
