@@ -10,6 +10,7 @@ module.exports = function (options) {
     var asciidoctorOptions = {};
 
     // default config
+    extension = options.extension || '.html'
     asciidoctorOptions.safe = options.safe || 'secure'; //unsafe, safe, server or secure
     asciidoctorOptions.doctype = options.doctype || 'article'; //book,inline
     asciidoctorOptions.attributes = options.attributes || ['showtitle'];
@@ -41,7 +42,7 @@ module.exports = function (options) {
             asciidoctorOptions);
 
         file.contents = Buffer.from(data);
-        file.path = replaceExt(file.path, '.html');
+        file.path = replaceExt(file.path, extension);
 
         callback(null, file);
 

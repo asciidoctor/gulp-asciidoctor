@@ -19,7 +19,8 @@ gulp.pipe(asciidoctor({
   safe: 'secure', // unsafe, safe, server or secure
   doctype: 'article', // book, inline
   header_footer: true, // true or false
-  attributes: ['showtitle']
+  attributes: ['showtitle'],
+  extension: '.htm'
 }));
 ----
 
@@ -30,6 +31,9 @@ gulp.pipe(asciidoctor({
 npm install gulp-asciidoctor --save
 ----
 
+=== Options
+
+* `extension`: Sets the output extension. Defaults to '.html'
 
 === Change Log
 - V2.1.1: upgrade to asciidoctor 2.1.1, mocha 7.1.0 and replaced gulp-util with replace-ext and plugin-error

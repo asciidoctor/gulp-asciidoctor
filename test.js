@@ -45,6 +45,25 @@ it('should run ok without args', function (cb) {
     stream.end();
 });
 
+// Check extension
+it('should run ok with extension .newext', function (cb) {
+    var stream = asciidoctor({
+        extension: '.newext'
+    });
+
+    stream.once('data', function (file) {
+        assert.equal(file.relative, 'fixture.newext');
+    });
+
+    stream.on('end', cb);
+
+    stream.write(new Vinyl({
+        path: 'fixture.adoc',
+        contents: Buffer.from('*foo*')
+    }));
+
+    stream.end();
+});
 
 // header_footer: false,
 it('test case without header_footer', function (cb) {
