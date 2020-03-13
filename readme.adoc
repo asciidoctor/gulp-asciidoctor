@@ -35,6 +35,10 @@ npm install gulp-asciidoctor --save
 
 * `extension`: Sets the output extension. Defaults to '.html'
 
+=== Important
+Do not forget to set the AsciiDoctor option `base_dir` if you want to include
+files from locations that are non-relative to the currently proecssed file.
+
 === Change Log
 - V2.1.1: upgrade to asciidoctor 2.1.1, mocha 7.1.0 and replaced gulp-util with replace-ext and plugin-error
 - v1.5.5-4: upgrade asciidoctor.js to version 1.5.5-4 and use version consistent with asciidoctor.js.
