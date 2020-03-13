@@ -1,57 +1,60 @@
 // PLUGIN_NAME: gulp-asciidoctor
-var through = require('through-gulp');
-var PluginError = require('plugin-error');
-var replaceExt = require('replace-ext');
-var asciidoctor = require('asciidoctor')();
+var through = require('through-gulp')
+var PluginError = require('plugin-error')
+var replaceExt = require('replace-ext')
+var asciidoctor = require('asciidoctor')()
 
-module.exports = function (options) {
+module.exports = function (theOptions = {}) {
+  var options = theOptions || {}
+  var asciidoctorOptions = {}
 
-    var options = options || {};
-    var asciidoctorOptions = {};
+  // default config
+  var extension = options.extension || '.html'
+  asciidoctorOptions.safe = options.safe || 'secure' // unsafe, safe, server or secure
+  asciidoctorOptions.doctype = options.doctype || 'article' // book,inline
+  asciidoctorOptions.attributes = options.attributes || ['showtitle']
+  asciidoctorOptions.header_footer = (options.header_footer === undefined
+    ? true : options.header_footer)
 
-    // default config
-    extension = options.extension || '.html'
-    asciidoctorOptions.safe = options.safe || 'secure'; //unsafe, safe, server or secure
-    asciidoctorOptions.doctype = options.doctype || 'article'; //book,inline
-    asciidoctorOptions.attributes = options.attributes || ['showtitle'];
-    asciidoctorOptions.header_footer = (options.header_footer === undefined ?
-        true : options.header_footer);
+  // creating a stream through which each file will pass
+  var stream = through(function (file, encoding, callback) {
+    // do whatever necessary to process the file
+    if (file.isNull()) {
+      callback(null, file)
+      return
+    }
 
-    // creating a stream through which each file will pass
-    var stream = through(function (file, encoding, callback) {
-        // do whatever necessary to process the file
-        if (file.isNull()) {
-            callback(null, file);
-            return;
-        }
+    if (file.isStream()) {
+      callback(new PluginError('gulp-asciidoctor',
+        'Streaming not supported'))
+      return
+    }
 
-        if (file.isStream()) {
-            callback(new PluginError('gulp-asciidoctor',
-                'Streaming not supported'));
-            return;
-        }
+    if (file.isBuffer()) {
 
-        if (file.isBuffer()) {
+    }
 
-        }
+    // Set a base_dir if no one is given to resolve relative filenames
+    // when using includ::[]
+    // see https://github.com/asciidoctor/gulp-asciidoctor/issues/5
+    asciidoctorOptions.base_dir = theOptions.base_dir || file.dirname
 
-        // just pipe data next, or just do nothing to process file later in flushFunction
-        // never forget callback to indicate that the file has been processed.
+    // just pipe data next, or just do nothing to process file later in flushFunction
+    // never forget callback to indicate that the file has been processed.
 
-        var data = asciidoctor.convert(file.contents.toString(),
-            asciidoctorOptions);
+    var data = asciidoctor.convert(file.contents.toString(),
+      asciidoctorOptions)
 
-        file.contents = Buffer.from(data);
-        file.path = replaceExt(file.path, extension);
+    file.contents = Buffer.from(data)
+    file.path = replaceExt(file.path, extension)
 
-        callback(null, file);
+    callback(null, file)
+  }, function (callback) {
+    // just pipe data next, just callback to indicate that the stream's over
+    // this.push(something);
+    callback()
+  })
 
-    }, function (callback) {
-        // just pipe data next, just callback to indicate that the stream's over
-        // this.push(something);
-        callback();
-    });
-
-    // returning the file stream
-    return stream;
-};
+  // returning the file stream
+  return stream
+}

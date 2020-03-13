@@ -15,8 +15,13 @@
   "engines": {
     "node": ">=0.10.0"
   },
+  "standard": {
+    "env": [
+      "mocha"
+    ]
+  },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha spec/*.spec.js"
   },
   "files": [
     "index.js"
@@ -38,6 +43,8 @@
   },
   "devDependencies": {
     "mocha": "^7.1.0",
+    "prettier-standard": "^16.2.1",
+    "standard": "^14.3.1",
     "vinyl": "^2.2.0"
   }
 }
