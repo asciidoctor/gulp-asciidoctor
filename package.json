@@ -1,9 +1,9 @@
 {
-  "name": "@henriette-einstein/gulp-asciidoctor",
+  "name": "@asciidoctor/gulp-asciidoctor",
   "version": "2.1.1",
   "description": "Gulp AsciiDoctor plugin",
   "license": "MIT",
-  "repository": "https://github.com/henriette-einstein/gulp-asciidoctor",
+  "repository": "https://github.com/asciidoctor/gulp-asciidoctor",
   "author": {
     "name": "John Dong",
     "email": "dongwqs@sina.com",
