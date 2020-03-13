@@ -10,7 +10,7 @@ module.exports = function (theOptions = {}) {
 
   // default config
   var extension = options.extension || '.html'
-  asciidoctorOptions.safe = options.safe || 'secure' // unsafe, safe, server or secure
+  asciidoctorOptions.safe = options.safe || 'unsafe' // unsafe, safe, server or secure
   asciidoctorOptions.doctype = options.doctype || 'article' // book,inline
   asciidoctorOptions.attributes = options.attributes || ['showtitle']
   asciidoctorOptions.header_footer = (options.header_footer === undefined

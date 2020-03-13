@@ -141,11 +141,94 @@ include::simple.adoc[]
   })
 
   // include with safe 'safe'
+  it('should include a file by using relative path', function (cb) {
+    var stream = asciidoctor({
+      header_footer: false,
+      safe: 'safe'
+    })
+
+    stream.once('data', function (file) {
+      assert.strictEqual(file.relative, 'fixture.html')
+      assert.strictEqual(file.contents.toString(),
+        '<div class="paragraph">\n<p><strong>foo</strong></p>\n</div>'
+      )
+    })
+
+    stream.on('end', cb)
+
+    stream.write(new Vinyl({
+      path: path.join(__dirname, '/fixture.adoc'),
+      cwd: process.cwd(),
+      base: __dirname,
+      contents: Buffer.from(`
+include::simple.adoc[]
+`)
+    }))
+
+    stream.end()
+  })
+
+  // include with safe 'unsafe'
+  it('should include a file by using relative path and safe-mode "unsafe"', function (cb) {
+    var stream = asciidoctor({
+      header_footer: false
+    })
+
+    stream.once('data', function (file) {
+      assert.strictEqual(file.relative, 'fixture.html')
+      assert.strictEqual(file.contents.toString(),
+        '<div class="paragraph">\n<p><strong>foo</strong></p>\n</div>'
+      )
+    })
+
+    stream.on('end', cb)
+
+    stream.write(new Vinyl({
+      path: path.join(__dirname, '/fixture.adoc'),
+      cwd: process.cwd(),
+      base: __dirname,
+      contents: Buffer.from(`
+include::simple.adoc[]
+`)
+    }))
+
+    stream.end()
+  })
+
+  // include with safe 'safe'
   it('should include a file by using AsciiDoctor base_dir option', function (cb) {
     var stream = asciidoctor({
       header_footer: false,
       base_dir: path.join(__dirname, 'include'),
       safe: 'safe'
+    })
+
+    stream.once('data', function (file) {
+      assert.strictEqual(file.relative, 'fixture.html')
+      assert.strictEqual(file.contents.toString(),
+        '<div class="paragraph">\n<p><strong>bar</strong></p>\n</div>'
+      )
+    })
+
+    stream.on('end', cb)
+
+    stream.write(new Vinyl({
+      path: path.join(__dirname, '/fixture.adoc'),
+      cwd: process.cwd(),
+      base: __dirname,
+      contents: Buffer.from(`
+include::simple.adoc[]
+`)
+    }))
+
+    stream.end()
+  })
+
+  // include with safe 'safe'
+  it('should include a file by using AsciiDoctor base_dir option and safe_mode "unsafe"', function (cb) {
+    var stream = asciidoctor({
+      header_footer: false,
+      base_dir: path.join(__dirname, 'include')
     })
 
     stream.once('data', function (file) {
