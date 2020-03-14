@@ -252,3 +252,52 @@ include::simple.adoc[]
     stream.end()
   })
 })
+
+describe('Test converters', function () {
+  it('should register a custom converter provided as a function', function (cb) {
+    var stream = asciidoctor({
+      header_footer: false,
+      attributes: ['showtitle'],
+      converter: require('./extensions/testConverterExportsFunction')()
+    })
+
+    stream.once('data', function (file) {
+      assert.strictEqual(file.relative, 'fixture.html')
+      assert.strictEqual(file.contents.toString(),
+        '<p><strong>foo</strong></p>'
+      )
+    })
+
+    stream.on('end', cb)
+
+    stream.write(new Vinyl({
+      path: 'fixture.adoc',
+      contents: Buffer.from('*foo*')
+    }))
+
+    stream.end()
+  })
+  it('should register a custom converter provided as a class', function (cb) {
+    var stream = asciidoctor({
+      header_footer: false,
+      attributes: ['showtitle'],
+      converter: require('./extensions/testConverterExportsClass')
+    })
+
+    stream.once('data', function (file) {
+      assert.strictEqual(file.relative, 'fixture.html')
+      assert.strictEqual(file.contents.toString(),
+        '<p class="myclass"><strong>foo</strong></p>'
+      )
+    })
+
+    stream.on('end', cb)
+
+    stream.write(new Vinyl({
+      path: 'fixture.adoc',
+      contents: Buffer.from('*foo*')
+    }))
+
+    stream.end()
+  })
+})

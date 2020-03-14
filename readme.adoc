@@ -33,7 +33,21 @@ npm install gulp-asciidoctor --save
 
 === Options
 
-* `extension`: Sets the output extension. Defaults to '.html'
+=== Plugin specific Options
+The following options can be used to configure the Gulp-Plugin
+
+extension:: Sets the output extension of the plugin. Defaults to '.html'
+converter:: Sets the converter to use by the underlying AsciiDoctor. If not set, the default converter for the backeend is used
+
+=== AsciiDoctor Options
+The following options of the underlying AsciiDoctor can be set
+
+attributes:: Sets additional document attributes, which override equivalently-named attributes defined in the document 
+backed:: Sets the converter ot use. Defaults to 'html5'
+base_dir:: The base directory for resolving relative resources
+doctype:: The doctype. May be 'article', 'book' or 'inline'. Defaults to 'article'
+header_footer:: If true, include header and footer in the output. Defaults to 'true'
+safe:: The safemode to use. May be 'unsafe', 'safe', 'server' or 'secure'. Defaults to 'unsafe'
 
 === Important
 Do not forget to set the AsciiDoctor option `base_dir` if you want to include
