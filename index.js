@@ -47,11 +47,8 @@ module.exports = function (theOptions = {}) {
   if (options.converter !== undefined) {
     var cnv = options.converter
     if (isClass(options.converter)) {
-      const CnvClass = options.converter
-      cnv = new CnvClass()
-    }
-
-    if (typeof cnv.convert === 'function') {
+      asciidoctor.ConverterFactory.register(options.converter, [asciidoctorOptions.backend])
+    } else if (typeof cnv.convert === 'function') {
       asciidoctor.ConverterFactory.register(cnv, [asciidoctorOptions.backend])
     } else {
       throw new PluginError('gulp-asciidoctor', 'Provided custom converter must implement a convert() method')

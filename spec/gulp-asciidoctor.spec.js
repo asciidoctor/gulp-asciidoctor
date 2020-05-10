@@ -384,7 +384,32 @@ describe('Test converters', function () {
     stream.once('data', function (file) {
       expect(file.relative).to.equal('fixture.html')
       expect(file.contents.toString()).to.equal(
-        '<p><strong>foo</strong></p>'
+        '<p class="myclass"><strong>foo</strong></p>'
+      )
+    })
+
+    stream.on('end', cb)
+
+    stream.write(new Vinyl({
+      path: 'fixture.adoc',
+      contents: Buffer.from('*foo*')
+    }))
+
+    stream.end()
+  })
+
+  it('should register a custom converter instantiated here', function (cb) {
+    const CnvClass = require('./extensions/testConverterExportsClass')
+    var stream = asciidoctor({
+      standalone: false,
+      attributes: ['showtitle'],
+      converter: new CnvClass()
+    })
+
+    stream.once('data', function (file) {
+      expect(file.relative).to.equal('fixture.html')
+      expect(file.contents.toString()).to.equal(
+        '<p class="myclass"><strong>foo</strong></p>'
       )
     })
 
