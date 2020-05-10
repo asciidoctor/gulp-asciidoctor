@@ -9,6 +9,10 @@
     "John Dong <dongwqs@sina.com>",
     "Armin Pfarr <arp@henriette-einstein.com>"
   ],
+  "engines": {
+    "node": ">=8.11",
+    "npm": ">5.0.0"
+  },
   "standard": {
     "env": [
       "mocha"
