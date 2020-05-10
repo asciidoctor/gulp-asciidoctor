@@ -19,7 +19,8 @@ gulp.pipe(asciidoctor({
   safe: 'secure', // unsafe, safe, server or secure
   doctype: 'article', // book, inline
   header_footer: true, // true or false
-  attributes: ['showtitle']
+  attributes: ['showtitle'],
+  extension: '.htm'
 }));
 ----
 
@@ -30,8 +31,30 @@ gulp.pipe(asciidoctor({
 npm install gulp-asciidoctor --save
 ----
 
+=== Options
+
+=== Plugin specific Options
+The following options can be used to configure the Gulp-Plugin
+
+extension:: Sets the output extension of the plugin. Defaults to '.html'
+converter:: Sets the converter to use by the underlying AsciiDoctor. If not set, the default converter for the backeend is used
+
+=== AsciiDoctor Options
+The following options of the underlying AsciiDoctor can be set
+
+attributes:: Sets additional document attributes, which override equivalently-named attributes defined in the document 
+backed:: Sets the converter ot use. Defaults to 'html5'
+base_dir:: The base directory for resolving relative resources
+doctype:: The doctype. May be 'article', 'book' or 'inline'. Defaults to 'article'
+header_footer:: If true, include header and footer in the output. Defaults to 'true'
+safe:: The safemode to use. May be 'unsafe', 'safe', 'server' or 'secure'. Defaults to 'unsafe'
+
+=== Important
+Do not forget to set the AsciiDoctor option `base_dir` if you want to include
+files from locations that are non-relative to the currently proecssed file.
 
 === Change Log
+- V2.1.1: upgrade to asciidoctor 2.1.1, mocha 7.1.0 and replaced gulp-util with replace-ext and plugin-error
 - v1.5.5-4: upgrade asciidoctor.js to version 1.5.5-4 and use version consistent with asciidoctor.js.
 - v1.0.8: upgrade asciidoctor.js to version 1.5.5-1 and other deps to latest.
 - v1.0.7: clean dependences(remove gulp and gulp-debug). 
