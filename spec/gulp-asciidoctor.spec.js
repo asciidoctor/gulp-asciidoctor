@@ -371,3 +371,55 @@ it('should support a standalone option', function (cb) {
 
   stream.end()
 })
+
+describe('Test converters', function () {
+  it('should register a custom converter provided as a class', function (cb) {
+    const CnvClass = require('./extensions/testConverterExportsClass')
+    var stream = asciidoctor({
+      standalone: false,
+      attributes: ['showtitle'],
+      converter: CnvClass
+    })
+
+    stream.once('data', function (file) {
+      expect(file.relative).to.equal('fixture.html')
+      expect(file.contents.toString()).to.equal(
+        '<p><strong>foo</strong></p>'
+      )
+    })
+
+    stream.on('end', cb)
+
+    stream.write(new Vinyl({
+      path: 'fixture.adoc',
+      contents: Buffer.from('*foo*')
+    }))
+
+    stream.end()
+  })
+
+  it('should register a custom converter provided as a function', function (cb) {
+    const cnvFunction = require('./extensions/testConverterExportsFunction')
+    var stream = asciidoctor({
+      standalone: false,
+      attributes: ['showtitle'],
+      converter: cnvFunction()
+    })
+
+    stream.once('data', function (file) {
+      expect(file.relative).to.equal('fixture.html')
+      expect(file.contents.toString()).to.equal(
+        '<p><strong>foo</strong></p>'
+      )
+    })
+
+    stream.on('end', cb)
+
+    stream.write(new Vinyl({
+      path: 'fixture.adoc',
+      contents: Buffer.from('*foo*')
+    }))
+
+    stream.end()
+  })
+})

@@ -1,8 +1,18 @@
+'use strict'
+
 // PLUGIN_NAME: gulp-asciidoctor
 var through = require('through-gulp')
 var PluginError = require('plugin-error')
 var replaceExt = require('replace-ext')
 var asciidoctor = require('@asciidoctor/core')()
+
+/**
+ * Test is the given object is a class
+ * @param {object} obj The object to test
+ */
+function isClass (obj) {
+  return typeof obj === 'function' && obj.name !== 'Object'
+}
 
 module.exports = function (theOptions = {}) {
   var options = theOptions || {}
@@ -32,6 +42,21 @@ module.exports = function (theOptions = {}) {
   delete asciidoctorOptions.to_file
   delete asciidoctorOptions.to_dir
   delete asciidoctorOptions.mkdirs
+
+  // Load converter if option is set
+  if (options.converter !== undefined) {
+    var cnv = options.converter
+    if (isClass(options.converter)) {
+      const CnvClass = options.converter
+      cnv = new CnvClass()
+    }
+
+    if (typeof cnv.convert === 'function') {
+      asciidoctor.ConverterFactory.register(cnv, [asciidoctorOptions.backend])
+    } else {
+      throw new PluginError('gulp-asciidoctor', 'Provided custom converter must implement a convert() method')
+    }
+  }
 
   // creating a stream through which each file will pass
   var stream = through(function (file, encoding, callback) {

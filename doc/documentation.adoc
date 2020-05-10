@@ -1,6 +1,15 @@
-== gulp-asciidoctor
+= Asciidoctor plugin for Gulp
 
-=== Usage
+A https://gulpjs.com[gulp] plugin to support Asciidoctor processing in gulp tasks.
+
+== Installation
+
+----
+npm install gulp-asciidoctor --save
+----
+
+== Usage
+This plugin can be used to integrate Asciidoctor processing in yout gulp tasks. Here are some typical scenarios.
 
 .Simple
 [source,javascript]
@@ -33,20 +42,14 @@ gulp.pipe(asciidoctor({
 }));
 ----
 
-=== install
+== Options
 
-----
-npm install gulp-asciidoctor --save
-----
-
-=== Options
-
-=== Plugin specific Options
+== Plugin specific Options
 The following options can be used to configure the Gulp-Plugin
 
 extension:: Sets the output extension of the plugin. Defaults to '.html'
 
-=== AsciiDoctor Options
+== AsciiDoctor Options
 All options of the underlying AsciiDoctor can be set.
 
 However, the options
@@ -59,24 +62,25 @@ will be removed, since they do not make sense in a gulp processing chain.
 
 If not set, the following options will be set to the default values described here
 
-backed:: Sets the converter ot use. Defaults to 'html5'
+backed:: Sets the converter backend to use. Defaults to 'html5'
 base_dir:: The base directory for resolving relative resources. Defaults to the directory of the currently processed file
 doctype:: The doctype. May be 'article', 'book' or 'inline'. Defaults to 'article'
 safe:: The safemode to use. May be 'unsafe', 'safe', 'server' or 'secure'. Defaults to 'unsafe'
 standalone:: Should headers and footers be included. Defaults to 'true'
 
-=== Important
+== Important
 
-==== Base Directory
+=== Base Directory
 Do not forget to set the AsciiDoctor option `base_dir` if you want to include
 files from locations that are non-relative to the currently proecssed file.
 
-==== Obsolete option 'header_footer'
+=== Obsolete option 'header_footer'
 The 'old' option 'header_footer' will be skipped in favor of the new option 'standalone'.
-If 'header_footer' is set and 'standalone' is not set, the processor will receive 'standalone' = value of 'header_footer' and the option 'header_footer' will be stripped.
-If both 'header_footer' and 'standalone' are set, the option 'header_footer' will be stripped.
 
-=== Change Log
+* If 'header_footer' is set and 'standalone' is not set, the processor will receive 'standalone' = value of 'header_footer' option and the option 'header_footer' will be stripped.
+* If both 'header_footer' and 'standalone' are set, the option 'header_footer' will be stripped.
+
+== Change Log
 - V2.2.0: upgrade to asciidoctor 2.2.0
 - V2.1.1: upgrade to asciidoctor 2.1.1, mocha 7.1.0 and replaced gulp-util with replace-ext and plugin-error
 - v1.5.5-4: upgrade asciidoctor.js to version 1.5.5-4 and use version consistent with asciidoctor.js.
@@ -89,7 +93,6 @@ If both 'header_footer' and 'standalone' are set, the option 'header_footer' wil
     * Initialize asciidoctor.js only once (Thanks https://github.com/amr[Amr Mostafa])
 - v1.0.2: update to asciidoctor 1.5.2
 
-=== TODO
-- more asciidoctor functions
+== TODO
 - more test case
 
