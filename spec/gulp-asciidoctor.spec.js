@@ -1,4 +1,6 @@
-var assert = require('assert')
+const chai = require('chai')
+var expect = chai.expect
+
 var path = require('path')
 var Vinyl = require('vinyl')
 var asciidoctor = require('..')
@@ -11,8 +13,8 @@ describe('Test fucntionality', function () {
     })
 
     stream.once('data', function (file) {
-      assert.strictEqual(file.relative, 'fixture.html')
-      assert.strictEqual(file.contents.toString(),
+      expect(file.relative).to.equal('fixture.html')
+      expect(file.contents.toString()).to.equal(
         '<strong>foo</strong>'
       )
     })
@@ -31,7 +33,7 @@ describe('Test fucntionality', function () {
     var stream = asciidoctor()
 
     stream.once('data', function (file) {
-      assert.strictEqual(file.relative, 'fixture.html')
+      expect(file.relative).to.equal('fixture.html')
     })
 
     stream.on('end', cb)
@@ -51,7 +53,7 @@ describe('Test fucntionality', function () {
     })
 
     stream.once('data', function (file) {
-      assert.strictEqual(file.relative, 'fixture.newext')
+      expect(file.relative).to.equal('fixture.newext')
     })
 
     stream.on('end', cb)
@@ -72,8 +74,8 @@ describe('Test fucntionality', function () {
     })
 
     stream.once('data', function (file) {
-      assert.strictEqual(file.relative, 'fixture.html')
-      assert.strictEqual(file.contents.toString(),
+      expect(file.relative).to.equal('fixture.html')
+      expect(file.contents.toString()).to.equal(
         '<div class="paragraph">\n<p><strong>foo</strong></p>\n</div>'
       )
     })
@@ -96,8 +98,8 @@ describe('Test fucntionality', function () {
     })
 
     stream.once('data', function (file) {
-      assert.strictEqual(file.relative, 'fixture.html')
-      assert.notStrictEqual(file.contents.toString(),
+      expect(file.relative).to.equal('fixture.html')
+      expect(file.contents.toString()).to.equal(
         '<div class="paragraph">\n<p><strong>foo</strong></p>\n</div>'
       )
     })
@@ -120,8 +122,8 @@ describe('Test fucntionality', function () {
     })
 
     stream.once('data', function (file) {
-      assert.strictEqual(file.relative, 'fixture.html')
-      assert.strictEqual(file.contents.toString(),
+      expect(file.relative).to.equal('fixture.html')
+      expect(file.contents.toString()).to.equal(
         '<div class="paragraph">\n<p><strong>foo</strong></p>\n</div>'
       )
     })
@@ -148,8 +150,8 @@ include::simple.adoc[]
     })
 
     stream.once('data', function (file) {
-      assert.strictEqual(file.relative, 'fixture.html')
-      assert.strictEqual(file.contents.toString(),
+      expect(file.relative).to.equal('fixture.html')
+      expect(file.contents.toString()).to.equal(
         '<div class="paragraph">\n<p><strong>foo</strong></p>\n</div>'
       )
     })
@@ -175,8 +177,8 @@ include::simple.adoc[]
     })
 
     stream.once('data', function (file) {
-      assert.strictEqual(file.relative, 'fixture.html')
-      assert.strictEqual(file.contents.toString(),
+      expect(file.relative).to.equal('fixture.html')
+      expect(file.contents.toString()).to.equal(
         '<div class="paragraph">\n<p><strong>foo</strong></p>\n</div>'
       )
     })
@@ -204,8 +206,8 @@ include::simple.adoc[]
     })
 
     stream.once('data', function (file) {
-      assert.strictEqual(file.relative, 'fixture.html')
-      assert.strictEqual(file.contents.toString(),
+      expect(file.relative).to.equal('fixture.html')
+      expect(file.contents.toString()).to.equal(
         '<div class="paragraph">\n<p><strong>bar</strong></p>\n</div>'
       )
     })
@@ -232,8 +234,8 @@ include::simple.adoc[]
     })
 
     stream.once('data', function (file) {
-      assert.strictEqual(file.relative, 'fixture.html')
-      assert.strictEqual(file.contents.toString(),
+      expect(file.relative).to.equal('fixture.html')
+      expect(file.contents.toString()).to.equal(
         '<div class="paragraph">\n<p><strong>bar</strong></p>\n</div>'
       )
     })
@@ -253,51 +255,46 @@ include::simple.adoc[]
   })
 })
 
-describe('Test converters', function () {
-  it('should register a custom converter provided as a function', function (cb) {
-    var stream = asciidoctor({
-      header_footer: false,
-      attributes: ['showtitle'],
-      converter: require('./extensions/testConverterExportsFunction')()
-    })
-
-    stream.once('data', function (file) {
-      assert.strictEqual(file.relative, 'fixture.html')
-      assert.strictEqual(file.contents.toString(),
-        '<p><strong>foo</strong></p>'
-      )
-    })
-
-    stream.on('end', cb)
-
-    stream.write(new Vinyl({
-      path: 'fixture.adoc',
-      contents: Buffer.from('*foo*')
-    }))
-
-    stream.end()
+it('should support a template', function (cb) {
+  var stream = asciidoctor({
+    header_footer: false,
+    base_dir: path.join(__dirname, 'include'),
+    template_dirs: path.join(__dirname, 'templates')
   })
-  it('should register a custom converter provided as a class', function (cb) {
-    var stream = asciidoctor({
-      header_footer: false,
-      attributes: ['showtitle'],
-      converter: require('./extensions/testConverterExportsClass')
-    })
-
-    stream.once('data', function (file) {
-      assert.strictEqual(file.relative, 'fixture.html')
-      assert.strictEqual(file.contents.toString(),
-        '<p class="myclass"><strong>foo</strong></p>'
-      )
-    })
-
-    stream.on('end', cb)
-
-    stream.write(new Vinyl({
-      path: 'fixture.adoc',
-      contents: Buffer.from('*foo*')
-    }))
-
-    stream.end()
+  stream.once('data', function (file) {
+    expect(file.relative).to.equal('fixture.html')
+    expect(file.contents.toString()).to.equal(
+      '<p class="paragraph-nunjucks">foo</p>'
+    )
   })
+
+  stream.on('end', cb)
+
+  stream.write(new Vinyl({
+    path: 'fixture.adoc',
+    contents: Buffer.from('foo')
+  }))
+
+  stream.end()
+})
+
+it('should support a standalone option', function (cb) {
+  var stream = asciidoctor({
+    header_footer: false,
+    base_dir: path.join(__dirname, 'include'),
+    standalone: true
+  })
+  stream.once('data', function (file) {
+    expect(file.relative).to.equal('fixture.html')
+    expect(file.contents.toString()).to.contain('<!DOCTYPE html>')
+  })
+
+  stream.on('end', cb)
+
+  stream.write(new Vinyl({
+    path: 'fixture.adoc',
+    contents: Buffer.from('foo')
+  }))
+
+  stream.end()
 })

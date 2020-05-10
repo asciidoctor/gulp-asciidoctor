@@ -6,7 +6,7 @@
 [source,javascript]
 ----
 gulp.pipe(asciidoctor({
-  header_footer: false,
+  header_footer: true,
   attributes: ['showtitle']
 }));
 ----
@@ -15,7 +15,6 @@ gulp.pipe(asciidoctor({
 [source,javascript]
 ----
 gulp.pipe(asciidoctor({
-  header_footer: false,
   safe: 'secure', // unsafe, safe, server or secure
   doctype: 'article', // book, inline
   header_footer: true, // true or false
@@ -24,6 +23,15 @@ gulp.pipe(asciidoctor({
 }));
 ----
 
+.With templates
+[source,javascript]
+----
+var path = require('path')
+
+gulp.pipe(asciidoctor({
+  template_dirs: path.join(__dirname, 'templates')
+}));
+----
 
 === install
 
@@ -37,23 +45,33 @@ npm install gulp-asciidoctor --save
 The following options can be used to configure the Gulp-Plugin
 
 extension:: Sets the output extension of the plugin. Defaults to '.html'
-converter:: Sets the converter to use by the underlying AsciiDoctor. If not set, the default converter for the backeend is used
 
 === AsciiDoctor Options
-The following options of the underlying AsciiDoctor can be set
+All options of the underlying AsciiDoctor can be set.
 
-attributes:: Sets additional document attributes, which override equivalently-named attributes defined in the document 
+However, the options
+
+* mkdirs
+* to_dir
+* to_file
+
+will be removed, since they do not make sense in a gulp processing chain.
+
+If not set, the following options will be set to the default values described here
+
 backed:: Sets the converter ot use. Defaults to 'html5'
-base_dir:: The base directory for resolving relative resources
+base_dir:: The base directory for resolving relative resources. Defaults to the directory of the currently processed file
 doctype:: The doctype. May be 'article', 'book' or 'inline'. Defaults to 'article'
 header_footer:: If true, include header and footer in the output. Defaults to 'true'
 safe:: The safemode to use. May be 'unsafe', 'safe', 'server' or 'secure'. Defaults to 'unsafe'
+standalone:: Should headers and footers be included. Defaults to 'false'
 
 === Important
 Do not forget to set the AsciiDoctor option `base_dir` if you want to include
 files from locations that are non-relative to the currently proecssed file.
 
 === Change Log
+- V2.2.0: upgrade to asciidoctor 2.2.0
 - V2.1.1: upgrade to asciidoctor 2.1.1, mocha 7.1.0 and replaced gulp-util with replace-ext and plugin-error
 - v1.5.5-4: upgrade asciidoctor.js to version 1.5.5-4 and use version consistent with asciidoctor.js.
 - v1.0.8: upgrade asciidoctor.js to version 1.5.5-1 and other deps to latest.

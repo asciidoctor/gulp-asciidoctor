@@ -5,15 +5,15 @@
   "license": "MIT",
   "repository": "https://github.com/asciidoctor/gulp-asciidoctor",
   "author": {
-    "name": "John Dong",
-    "email": "dongwqs@sina.com",
-    "url": "https://github.com/dongwq/gulp-asciidoctor"
+    "name": "Armin Pfarr",
+    "email": "arp@henriette-einstein.com"
   },
   "contributors": [
-    "Armin Pfarr <arp@henriette-einstein.com>"
+    "John Dong <dongwqs@sina.com>"
   ],
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=8.11",
+    "npm": ">5.0.0"
   },
   "standard": {
     "env": [
@@ -21,7 +21,9 @@
     ]
   },
   "scripts": {
-    "test": "mocha spec/*.spec.js"
+    "test": "mocha spec/*.spec.js",
+    "lint": "npm run code:lint",
+    "code:lint": "standard spec/**/*.js index.js"
   },
   "files": [
     "index.js"
@@ -36,13 +38,16 @@
     "html"
   ],
   "dependencies": {
-    "asciidoctor": "^2.1.1",
+    "@asciidoctor/core": "^2.2.0",
     "plugin-error": "^1.0.1",
     "replace-ext": "^1.0.0",
     "through-gulp": "^0.5.0"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "dirty-chai": "^2.0.1",
     "mocha": "^7.1.0",
+    "nunjucks": "^3.2.1",
     "prettier-standard": "^16.2.1",
     "standard": "^14.3.1",
     "vinyl": "^2.2.0"
