@@ -9,6 +9,7 @@ describe('Test fucntionality', function () {
   it('should compile asciidoctor to HTML', function (cb) {
     var stream = asciidoctor({
       doctype: 'inline',
+      standalone: false,
       attributes: ['showtitle']
     })
 
@@ -33,6 +34,7 @@ describe('Test fucntionality', function () {
     var stream = asciidoctor()
 
     stream.once('data', function (file) {
+      expect(file.contents.toString()).to.contain('<!DOCTYPE html>')
       expect(file.relative).to.equal('fixture.html')
     })
 
@@ -67,7 +69,7 @@ describe('Test fucntionality', function () {
   })
 
   // header_footer: false,
-  it('it should not emit header and footer', function (cb) {
+  it('it should not emit header and footer with header_footer option', function (cb) {
     var stream = asciidoctor({
       header_footer: false,
       attributes: ['showtitle']
@@ -90,9 +92,81 @@ describe('Test fucntionality', function () {
     stream.end()
   })
 
-  // header_footer: true,
-  it('it should emit header and footer', function (cb) {
+  it('it should not emit header and footer with standalone option', function (cb) {
     var stream = asciidoctor({
+      standalone: false,
+      attributes: ['showtitle']
+    })
+
+    stream.once('data', function (file) {
+      expect(file.relative).to.equal('fixture.html')
+      expect(file.contents.toString()).to.equal(
+        '<div class="paragraph">\n<p><strong>foo</strong></p>\n</div>'
+      )
+    })
+
+    stream.on('end', cb)
+
+    stream.write(new Vinyl({
+      path: 'fixture.adoc',
+      contents: Buffer.from('*foo*')
+    }))
+
+    stream.end()
+  })
+
+  // header_footer: true,
+  it('it should emit header and footer with header_footer option', function (cb) {
+    var stream = asciidoctor({
+      header_footer: true,
+      attributes: ['showtitle']
+    })
+
+    stream.once('data', function (file) {
+      expect(file.relative).to.equal('fixture.html')
+      expect(file.contents.toString()).to.contain('<!DOCTYPE html>')
+      expect(file.contents.toString()).to.contain(
+        '<div class="paragraph">\n<p><strong>foo</strong></p>\n</div>'
+      )
+    })
+
+    stream.on('end', cb)
+
+    stream.write(new Vinyl({
+      path: 'fixture.adoc',
+      contents: Buffer.from('*foo*')
+    }))
+
+    stream.end()
+  })
+
+  it('it should emit header and footer with standalone option', function (cb) {
+    var stream = asciidoctor({
+      standalone: true,
+      attributes: ['showtitle']
+    })
+
+    stream.once('data', function (file) {
+      expect(file.relative).to.equal('fixture.html')
+      expect(file.contents.toString()).to.contain('<!DOCTYPE html>')
+      expect(file.contents.toString()).to.contain(
+        '<div class="paragraph">\n<p><strong>foo</strong></p>\n</div>'
+      )
+    })
+
+    stream.on('end', cb)
+
+    stream.write(new Vinyl({
+      path: 'fixture.adoc',
+      contents: Buffer.from('*foo*')
+    }))
+
+    stream.end()
+  })
+
+  it('it should NOT emit header and footer. standalone wins', function (cb) {
+    var stream = asciidoctor({
+      standalone: false,
       header_footer: true,
       attributes: ['showtitle']
     })
@@ -117,7 +191,7 @@ describe('Test fucntionality', function () {
   // include with safe 'safe'
   it('should include a file by using relative path', function (cb) {
     var stream = asciidoctor({
-      header_footer: false,
+      standalone: false,
       safe: 'safe'
     })
 
@@ -145,7 +219,7 @@ include::simple.adoc[]
   // include with safe 'safe'
   it('should include a file by using relative path', function (cb) {
     var stream = asciidoctor({
-      header_footer: false,
+      standalone: false,
       safe: 'safe'
     })
 
@@ -173,7 +247,7 @@ include::simple.adoc[]
   // include with safe 'unsafe'
   it('should include a file by using relative path and safe-mode "unsafe"', function (cb) {
     var stream = asciidoctor({
-      header_footer: false
+      standalone: false
     })
 
     stream.once('data', function (file) {
@@ -200,7 +274,7 @@ include::simple.adoc[]
   // include with safe 'safe'
   it('should include a file by using AsciiDoctor base_dir option', function (cb) {
     var stream = asciidoctor({
-      header_footer: false,
+      standalone: false,
       base_dir: path.join(__dirname, 'include'),
       safe: 'safe'
     })
@@ -229,7 +303,7 @@ include::simple.adoc[]
   // include with safe 'safe'
   it('should include a file by using AsciiDoctor base_dir option and safe_mode "unsafe"', function (cb) {
     var stream = asciidoctor({
-      header_footer: false,
+      standalone: false,
       base_dir: path.join(__dirname, 'include')
     })
 
@@ -257,7 +331,7 @@ include::simple.adoc[]
 
 it('should support a template', function (cb) {
   var stream = asciidoctor({
-    header_footer: false,
+    standalone: false,
     base_dir: path.join(__dirname, 'include'),
     template_dirs: path.join(__dirname, 'templates')
   })
@@ -280,9 +354,8 @@ it('should support a template', function (cb) {
 
 it('should support a standalone option', function (cb) {
   var stream = asciidoctor({
-    header_footer: false,
-    base_dir: path.join(__dirname, 'include'),
-    standalone: true
+    standalone: true,
+    base_dir: path.join(__dirname, 'include')
   })
   stream.once('data', function (file) {
     expect(file.relative).to.equal('fixture.html')

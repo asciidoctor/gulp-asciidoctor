@@ -4,17 +4,11 @@
   "description": "Gulp Asciidoctor plugin",
   "license": "MIT",
   "repository": "https://github.com/asciidoctor/gulp-asciidoctor",
-  "author": {
-    "name": "Armin Pfarr",
-    "email": "arp@henriette-einstein.com"
-  },
-  "contributors": [
-    "John Dong <dongwqs@sina.com>"
+  "authors": [
+    "https://github.com/jeremy889988",
+    "John Dong <dongwqs@sina.com>",
+    "Armin Pfarr <arp@henriette-einstein.com>"
   ],
-  "engines": {
-    "node": ">=8.11",
-    "npm": ">5.0.0"
-  },
   "standard": {
     "env": [
       "mocha"

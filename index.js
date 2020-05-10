@@ -17,9 +17,15 @@ module.exports = function (theOptions = {}) {
   asciidoctorOptions.attributes = options.attributes || ['showtitle']
   asciidoctorOptions.backend = options.backed || 'html5' // defaults to html5
   asciidoctorOptions.doctype = options.doctype || 'article' // defaults to article
-  asciidoctorOptions.standalone = options.standalone || false // defaults to false
-  asciidoctorOptions.header_footer = (options.header_footer === undefined
-    ? true : options.header_footer)
+
+  if (asciidoctorOptions.standalone === undefined) {
+    if (asciidoctorOptions.header_footer !== undefined) {
+      asciidoctorOptions.standalone = asciidoctorOptions.header_footer
+    } else {
+      asciidoctorOptions.standalone = true // standalone defaults to true
+    }
+  }
+  delete asciidoctorOptions.header_footer
 
   // Extension is only used by gulp
   delete asciidoctorOptions.extension
