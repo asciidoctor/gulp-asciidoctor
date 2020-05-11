@@ -53,6 +53,7 @@ module.exports = function (theOptions = {}) {
     } else {
       throw new PluginError('gulp-asciidoctor', 'Provided custom converter must implement a convert() method')
     }
+    delete asciidoctorOptions.converter
   }
 
   // creating a stream through which each file will pass
