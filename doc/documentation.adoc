@@ -1,12 +1,24 @@
 = Asciidoctor plugin for Gulp
 
-A https://gulpjs.com[gulp] plugin to support Asciidoctor processing in gulp tasks.
+A https://gulpjs.com[gulp] plugin to support https://asciidoctor-docs.netlify.app/asciidoctor.js/[Asciidoctor.js] processing in gulp tasks.
 
 == Installation
 
+=== Requirements
+
+* You need https://nodejs.org[node] installed on your machine to install and run the gulp-asciidoctor plugin.
+* You need https://gulpjs.com[gulp] installed globally or in your project directory.
+
+=== Installation with npm
 ----
 npm install gulp-asciidoctor --save
 ----
+
+=== Installation with yarn
+----
+yarn add gulp-asciidoctor 
+----
+
 
 == Usage
 This plugin can be used to integrate Asciidoctor processing in yout gulp tasks. Here are some typical scenarios.
@@ -43,16 +55,19 @@ gulp.pipe(asciidoctor({
 ----
 
 == Options
+The behaviour of the plugin can be controlled via options. There are options that tweak the behaviour of the Gulp-plugin itself and options that controll the underlying Asciidoctor processor.
 
 == Plugin specific Options
 The following options can be used to configure the Gulp-Plugin
 
 extension:: Sets the output extension of the plugin. Defaults to '.html'
+cnv:: Sets a custom converter that should be used for processing. Defaults to undefined.
 
 == AsciiDoctor Options
-All options of the underlying AsciiDoctor can be set.
+All options of the underlying AsciiDoctor can be set. Please refer to the
+https://asciidoctor-docs.netlify.app/asciidoctor.js/processor/convert-options[Converter options] page to see, which options are available.
 
-However, the options
+However, the Asciidoctor options
 
 * mkdirs
 * to_dir

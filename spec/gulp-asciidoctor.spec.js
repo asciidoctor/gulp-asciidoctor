@@ -378,7 +378,7 @@ describe('Test converters', function () {
     var stream = asciidoctor({
       standalone: false,
       attributes: ['showtitle'],
-      converter: CnvClass
+      cnv: CnvClass
     })
 
     stream.once('data', function (file) {
@@ -403,7 +403,7 @@ describe('Test converters', function () {
     var stream = asciidoctor({
       standalone: false,
       attributes: ['showtitle'],
-      converter: new CnvClass()
+      cnv: new CnvClass()
     })
 
     stream.once('data', function (file) {
@@ -428,7 +428,7 @@ describe('Test converters', function () {
     var stream = asciidoctor({
       standalone: false,
       attributes: ['showtitle'],
-      converter: cnvFunction()
+      cnv: cnvFunction
     })
 
     stream.once('data', function (file) {

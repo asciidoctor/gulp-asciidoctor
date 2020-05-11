@@ -44,16 +44,18 @@ module.exports = function (theOptions = {}) {
   delete asciidoctorOptions.mkdirs
 
   // Load converter if option is set
-  if (options.converter !== undefined) {
-    var cnv = options.converter
-    if (isClass(options.converter)) {
-      asciidoctor.ConverterFactory.register(options.converter, [asciidoctorOptions.backend])
-    } else if (typeof cnv.convert === 'function') {
+  if (options.cnv !== undefined) {
+    var cnv = options.cnv
+    if (isClass(options.cnv)) {
+      const CnvClazz = options.cnv
+      cnv = new CnvClazz()
+    }
+    if (typeof cnv.convert === 'function') {
       asciidoctor.ConverterFactory.register(cnv, [asciidoctorOptions.backend])
     } else {
       throw new PluginError('gulp-asciidoctor', 'Provided custom converter must implement a convert() method')
     }
-    delete asciidoctorOptions.converter
+    delete asciidoctorOptions.cnv
   }
 
   // creating a stream through which each file will pass
