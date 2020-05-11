@@ -19,39 +19,76 @@ npm install gulp-asciidoctor --save
 yarn add gulp-asciidoctor 
 ----
 
-
 == Usage
-This plugin can be used to integrate Asciidoctor processing in yout gulp tasks. Here are some typical scenarios.
+This plugin can be used to integrate Asciidoctor processing in yout gulp tasks. Here is a typical usage scenario.
 
-.Simple
+.Gulpfile
 [source,javascript]
 ----
-gulp.pipe(asciidoctor({
-  standalone: true,
-  attributes: ['showtitle']
-}));
+const gulp = require('gulp')
+const asciidoctor = require('gulp-asciidoctor')
+
+function processAdocFiles (cb) {
+  gulp.src('/path/to/my/files/**/*.adoc')
+    .pipe(asciidoctor({})
+    .pipe(gulp.dest('targetdir'))
+  cb()
+}
+
+function copyImages(cb) {
+  gulp.src('/path/to/my/files/**/*.jpg')
+    .pipe(gulp.dest('targetdir'))
+  cb()
+}
+
+exports.process = gulp.parallel(processAdocFiles, copyImages)
 ----
 
-.Other argments
+You can configure the plugin itself by just adding options
+
+.Set plugin options
 [source,javascript]
 ----
-gulp.pipe(asciidoctor({
-  safe: 'secure', // unsafe, safe, server or secure
-  doctype: 'article', // book, inline
-  standalone: true, // true or false
-  attributes: ['showtitle'],
-  extension: '.htm'
-}));
+  ...
+
+  .pipe(asciidoctor({
+    extension: '.htm'
+  })
+
+  ...
 ----
 
-.With templates
+And you can also configure the underlying Asciidoctor processor via the respective Asciidoctor options
+
+.Set Asciidoctor options
+[source,javascript]
+----
+  ...
+
+  .pipe(asciidoctor({
+    safe: 'secure', // unsafe, safe, server or secure
+    doctype: 'article', // book, inline
+    standalone: true, // true or false
+    attributes: ['showtitle']
+  })
+
+  ...
+----
+
+The plugin also supports the https://asciidoctor-docs.netlify.app/asciidoctor.js/extend/converter/template-converter[Asciidoctor Template Converter]
+
+.With Asciidoctor templates
 [source,javascript]
 ----
 var path = require('path')
 
-gulp.pipe(asciidoctor({
+  ...
+
+  .pipe(asciidoctor({
   template_dirs: path.join(__dirname, 'templates')
-}));
+  })
+
+  ...
 ----
 
 == Options
