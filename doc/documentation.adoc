@@ -20,7 +20,7 @@ yarn add gulp-asciidoctor
 ----
 
 == Usage
-This plugin can be used to integrate Asciidoctor processing in yout gulp tasks. Here is a typical usage scenario.
+This plugin can be used to integrate Asciidoctor processing in your gulp tasks. Here is a typical usage scenario.
 
 .Gulpfile
 [source,javascript]
@@ -44,7 +44,7 @@ function copyImages(cb) {
 exports.process = gulp.parallel(processAdocFiles, copyImages)
 ----
 
-You can configure the plugin itself by just adding options
+You can configure the plugin itself by adding options:
 
 .Set plugin options
 [source,javascript]
@@ -58,7 +58,7 @@ You can configure the plugin itself by just adding options
   ...
 ----
 
-And you can also configure the underlying Asciidoctor processor via the respective Asciidoctor options
+And you can also configure the underlying Asciidoctor processor via the respective Asciidoctor options:
 
 .Set Asciidoctor options
 [source,javascript]
@@ -98,13 +98,13 @@ The behaviour of the plugin can be controlled via options. There are options tha
 The following options can be used to configure the Gulp-Plugin
 
 extension:: Sets the output extension of the plugin. Defaults to '.html'
-cnv:: Sets a custom converter that should be used for processing. Defaults to undefined.
+cnv:: Sets a custom converter that should be used for processing. Defaults to 'undefined'.
 
 == AsciiDoctor Options
-All options of the underlying AsciiDoctor can be set. Please refer to the
+All options of the underlying Asciidoctor can be set. Please refer to the
 https://asciidoctor-docs.netlify.app/asciidoctor.js/processor/convert-options[Converter options] page to see, which options are available.
 
-However, the Asciidoctor options
+However, the following Asciidoctor options:
 
 * mkdirs
 * to_dir
@@ -123,7 +123,7 @@ standalone:: Should headers and footers be included. Defaults to 'true'
 == Important
 
 === Base Directory
-Do not forget to set the AsciiDoctor option `base_dir` if you want to include
+Do not forget to set the Asciidoctor option `base_dir` if you want to include
 files from locations that are non-relative to the currently proecssed file.
 
 === Obsolete option 'header_footer'
@@ -132,7 +132,7 @@ The 'old' option 'header_footer' will be skipped in favor of the new option 'sta
 * If 'header_footer' is set and 'standalone' is not set, the processor will receive 'standalone' = value of 'header_footer' option and the option 'header_footer' will be stripped.
 * If both 'header_footer' and 'standalone' are set, the option 'header_footer' will be stripped.
 
-== Change Log
+== Changelog
 - V2.2.0: upgrade to asciidoctor 2.2.0
 - V2.1.1: upgrade to asciidoctor 2.1.1, mocha 7.1.0 and replaced gulp-util with replace-ext and plugin-error
 - v1.5.5-4: upgrade asciidoctor.js to version 1.5.5-4 and use version consistent with asciidoctor.js.
