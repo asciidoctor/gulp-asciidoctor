@@ -1,0 +1,150 @@
+= Asciidoctor plugin for Gulp
+
+A https://gulpjs.com[gulp] plugin to support https://asciidoctor-docs.netlify.app/asciidoctor.js/[Asciidoctor.js] processing in gulp tasks.
+
+== Installation
+
+=== Requirements
+
+* You need https://nodejs.org[node] installed on your machine to install and run the gulp-asciidoctor plugin.
+* You need https://gulpjs.com[gulp] installed globally or in your project directory.
+
+=== Installation with npm
+----
+npm install gulp-asciidoctor --save
+----
+
+=== Installation with yarn
+----
+yarn add gulp-asciidoctor 
+----
+
+== Usage
+This plugin can be used to integrate Asciidoctor processing in your gulp tasks. Here is a typical usage scenario.
+
+.Gulpfile
+[source,javascript]
+----
+const gulp = require('gulp')
+const asciidoctor = require('gulp-asciidoctor')
+
+function processAdocFiles (cb) {
+  gulp.src('/path/to/my/files/**/*.adoc')
+    .pipe(asciidoctor({})
+    .pipe(gulp.dest('targetdir'))
+  cb()
+}
+
+function copyImages(cb) {
+  gulp.src('/path/to/my/files/**/*.jpg')
+    .pipe(gulp.dest('targetdir'))
+  cb()
+}
+
+exports.process = gulp.parallel(processAdocFiles, copyImages)
+----
+
+You can configure the plugin itself by adding options:
+
+.Set plugin options
+[source,javascript]
+----
+  ...
+
+  .pipe(asciidoctor({
+    extension: '.htm'
+  })
+
+  ...
+----
+
+And you can also configure the underlying Asciidoctor processor via the respective Asciidoctor options:
+
+.Set Asciidoctor options
+[source,javascript]
+----
+  ...
+
+  .pipe(asciidoctor({
+    safe: 'secure', // unsafe, safe, server or secure
+    doctype: 'article', // book, inline
+    standalone: true, // true or false
+    attributes: ['showtitle']
+  })
+
+  ...
+----
+
+The plugin also supports the https://asciidoctor-docs.netlify.app/asciidoctor.js/extend/converter/template-converter[Asciidoctor Template Converter]
+
+.With Asciidoctor templates
+[source,javascript]
+----
+var path = require('path')
+
+  ...
+
+  .pipe(asciidoctor({
+  template_dirs: path.join(__dirname, 'templates')
+  })
+
+  ...
+----
+
+== Options
+The behaviour of the plugin can be controlled via options. There are options that tweak the behaviour of the Gulp-plugin itself and options that controll the underlying Asciidoctor processor.
+
+== Plugin specific Options
+The following options can be used to configure the Gulp-Plugin
+
+extension:: Sets the output extension of the plugin. Defaults to '.html'
+cnv:: Sets a custom converter that should be used for processing. Defaults to 'undefined'.
+
+== AsciiDoctor Options
+All options of the underlying Asciidoctor can be set. Please refer to the
+https://asciidoctor-docs.netlify.app/asciidoctor.js/processor/convert-options[Converter options] page to see, which options are available.
+
+However, the following Asciidoctor options:
+
+* mkdirs
+* to_dir
+* to_file
+
+will be removed, since they do not make sense in a gulp processing chain.
+
+If not set, the following options will be set to the default values described here
+
+backed:: Sets the converter backend to use. Defaults to 'html5'
+base_dir:: The base directory for resolving relative resources. Defaults to the directory of the currently processed file
+doctype:: The doctype. May be 'article', 'book' or 'inline'. Defaults to 'article'
+safe:: The safemode to use. May be 'unsafe', 'safe', 'server' or 'secure'. Defaults to 'unsafe'
+standalone:: Should headers and footers be included. Defaults to 'true'
+
+== Important
+
+=== Base Directory
+Do not forget to set the Asciidoctor option `base_dir` if you want to include
+files from locations that are non-relative to the currently proecssed file.
+
+=== Obsolete option 'header_footer'
+The 'old' option 'header_footer' will be skipped in favor of the new option 'standalone'.
+
+* If 'header_footer' is set and 'standalone' is not set, the processor will receive 'standalone' = value of 'header_footer' option and the option 'header_footer' will be stripped.
+* If both 'header_footer' and 'standalone' are set, the option 'header_footer' will be stripped.
+
+== Changelog
+- V2.2.0: upgrade to asciidoctor 2.2.0
+- V2.1.1: upgrade to asciidoctor 2.1.1, mocha 7.1.0 and replaced gulp-util with replace-ext and plugin-error
+- v1.5.5-4: upgrade asciidoctor.js to version 1.5.5-4 and use version consistent with asciidoctor.js.
+- v1.0.8: upgrade asciidoctor.js to version 1.5.5-1 and other deps to latest.
+- v1.0.7: clean dependences(remove gulp and gulp-debug). 
+- v1.0.6: bug fixed
+- v1.0.5: fix asciidoctor.js default init bug (Jan/11/2015)
+- v1.0.4: bug fixed (Jan/11/2015)
+- v1.0.3: bug fixed (Jan/8/2015)
+    * Initialize asciidoctor.js only once (Thanks https://github.com/amr[Amr Mostafa])
+- v1.0.2: update to asciidoctor 1.5.2
+
+== TODO
+- more test case
+

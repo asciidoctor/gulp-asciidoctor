@@ -1,8 +1,10 @@
+'use strict'
+
 // PLUGIN_NAME: gulp-asciidoctor
 var through = require('through-gulp')
 var PluginError = require('plugin-error')
 var replaceExt = require('replace-ext')
-var asciidoctor = require('asciidoctor')()
+var asciidoctor = require('@asciidoctor/core')()
 
 /**
  * Test is the given object is a class
@@ -14,11 +16,10 @@ function isClass (obj) {
 
 module.exports = function (theOptions = {}) {
   var options = theOptions || {}
-  var asciidoctorOptions = {}
+  var asciidoctorOptions = { ...theOptions }
 
   // default config
   var extension = options.extension || '.html'
-  // var extensionRegistry = asciidoctor.Extensions
 
   // AsciiDoctor options
   asciidoctorOptions.safe = options.safe || 'unsafe' // unsafe, safe, server or secure
@@ -26,27 +27,35 @@ module.exports = function (theOptions = {}) {
   asciidoctorOptions.attributes = options.attributes || ['showtitle']
   asciidoctorOptions.backend = options.backed || 'html5' // defaults to html5
   asciidoctorOptions.doctype = options.doctype || 'article' // defaults to article
-  asciidoctorOptions.header_footer = (options.header_footer === undefined
-    ? true : options.header_footer)
 
-  // If user overrides extension registry, use his registry
-  // if (options.extension_registry !== undefined) {
-  //   extensionRegistry = options.extension_registry
-  // }
+  if (asciidoctorOptions.standalone === undefined) {
+    if (asciidoctorOptions.header_footer !== undefined) {
+      asciidoctorOptions.standalone = asciidoctorOptions.header_footer
+    } else {
+      asciidoctorOptions.standalone = true // standalone defaults to true
+    }
+  }
+  delete asciidoctorOptions.header_footer
+
+  // Extension is only used by gulp
+  delete asciidoctorOptions.extension
+  delete asciidoctorOptions.to_file
+  delete asciidoctorOptions.to_dir
+  delete asciidoctorOptions.mkdirs
 
   // Load converter if option is set
-  if (options.converter !== undefined) {
-    var cnv = options.converter
-    if (isClass(options.converter)) {
-      const CnvClass = options.converter
-      cnv = new CnvClass()
+  if (options.cnv !== undefined) {
+    var cnv = options.cnv
+    if (isClass(options.cnv)) {
+      const CnvClazz = options.cnv
+      cnv = new CnvClazz()
     }
-
     if (typeof cnv.convert === 'function') {
-      asciidoctor.ConverterFactory.register(cnv, asciidoctorOptions.backend)
+      asciidoctor.ConverterFactory.register(cnv, [asciidoctorOptions.backend])
     } else {
       throw new PluginError('gulp-asciidoctor', 'Provided custom converter must implement a convert() method')
     }
+    delete asciidoctorOptions.cnv
   }
 
   // creating a stream through which each file will pass

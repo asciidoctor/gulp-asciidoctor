@@ -1,6 +1,7 @@
-var asciidoctor = require('asciidoctor')()
+'use strict'
+var asciidoctor = require('@asciidoctor/core')()
 
-class TestConverter {
+class TestConverterClass {
   constructor () {
     this.baseConverter = asciidoctor.Html5Converter.create()
   }
@@ -14,4 +15,4 @@ class TestConverter {
   }
 }
 
-module.exports = TestConverter
+module.exports = TestConverterClass

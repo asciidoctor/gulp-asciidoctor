@@ -1,4 +1,4 @@
-var asciidoctor = require('asciidoctor')()
+var asciidoctor = require('@asciidoctor/core')()
 
 class TestConverter {
   constructor () {
