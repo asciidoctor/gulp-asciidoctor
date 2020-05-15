@@ -27,4 +27,4 @@ $ yarn add gulp-asciidoctor
 
 ## Documentation
 
-More information can be found in the [documentation](./doc/documentation.adoc) on Github.
+More information can be found in the [documentation](./docs/modules/ROOT/pages/index.adoc) on Github.
