@@ -1,0 +1,16 @@
+= gulp-asciidoctor Version Policy
+:keywords: release policy
+:uri-semver: https://semver.org/
+:uri-asciidoctorjs: https://asciidoctor-docs.netlify.app/asciidoctor.js/
+
+== Version Policy
+
+gulp-asciidoctor will follow the {uri-semver}[semantic versioning] rules. Each release will be versioned *major.minor.patch*.
+
+Major and Minor::
+Major and Minor release numbers will be the same as the underlying {uri-asciidcotrjs}[Asciidoctor.js] release numbers. That means, a gulp-asciidoctor release 2.3.x will be based on the Asciidoctor.js release 2.3.y.
+
+Patch::
+A patch fixes bugs and/or upgrades to a new patch release of Asciidoctor.js. The patch part of the release number of gulp-asciidoctor may therefore differ from the Asciidoctpr.js patch number.
+
+Please refer to the {uri-asciidoctorjs}/project/version-and-lifecycle-policies/[Asciidoctor.js Version and Lifecycle Policies] to find out more about the policies regarding major and minor release numbers.
