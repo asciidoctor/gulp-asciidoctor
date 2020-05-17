@@ -1,0 +1,4 @@
+name: gulp-asciidoctor
+title: Gulp support for Asciidoctor.js
+version: master
+display_version: 2.2.0
