@@ -25,6 +25,16 @@ $ npm install gulp-asciidoctor --save
 $ yarn add gulp-asciidoctor
 ```
 
+## Compatibility
+
+The following table shows the compatibility of the gulp-asciidoctor releases with the
+underlying Asciidoctor releases.
+
+| gulp-asciidoctor release | Asciidoctor.js release |
+| ------------------------ | ---------------------- |
+| v1.0.6                   | v1.5.2 or higher       |
+| v2.2.0                   | v2.2.0 or higher       |
+
 ## Documentation
 
-More information can be found in the [documentation](./doc/documentation.adoc) on Github.
+More information can be found in the [documentation](./docs/modules/ROOT/pages/index.adoc) on Github.
