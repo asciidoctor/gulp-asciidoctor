@@ -30,7 +30,7 @@ const asciidoctor = require('gulp-asciidoctor')
 
 function processAdocFiles (cb) {
   gulp.src('/path/to/my/files/**/*.adoc')
-    .pipe(asciidoctor({})
+    .pipe(asciidoctor({}))
     .pipe(gulp.dest('targetdir'))
   cb()
 }
