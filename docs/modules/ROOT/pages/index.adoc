@@ -123,7 +123,7 @@ If not set, the following options will be set to the default values described he
 === Base Directory
 
 Do not forget to set the Asciidoctor option `base_dir` if you want to include
-files from locations that are non-relative to the currently proecssed file.
+files from locations that are non-relative to the currently processed file.
 
 === Obsolete option 'header_footer'
 
