@@ -1,7 +1,7 @@
 # gulp-asciidoctor
 
 [![Build](https://github.com/asciidoctor/gulp-asciidoctor/workflows/Build/badge.svg)](https://github.com/asciidoctor/gulp-asciidoctor/actions?query=workflow%3ABuild)
-[![npm version](https://img.shields.io/npm/v/gulp-asciidoctor.svg)](https://www.npmjs.org/package/gulp-asciidoctor)
+[![npm version](https://img.shields.io/npm/v/gulp-asciidoctor.svg)](https://www.npmjs.org/package/@asciidoctor/gulp-asciidoctor)
 
 A [gulp](https://gulpjs.com) plugin to support Asciidoctor processing in gulp tasks.
 
@@ -16,13 +16,13 @@ You need [gulp](https://gulpjs.com) installed globally or in your project direct
 ### Install gulp-asciidoctor via npm
 
 ```
-$ npm install gulp-asciidoctor --save
+$ npm install @asciidoctor/gulp-asciidoctor --save
 ```
 
 ### Install gulp-asciidoctor via yarn
 
 ```
-$ yarn add gulp-asciidoctor
+$ yarn add @asciidoctor/gulp-asciidoctor
 ```
 
 ## Compatibility
