@@ -33,7 +33,7 @@ underlying Asciidoctor releases.
 | gulp-asciidoctor release | Asciidoctor.js release |
 | ------------------------ | ---------------------- |
 | v1.0.6                   | v1.5.2 or higher       |
-| v2.2.1                   | v2.2.0 or higher       |
+| v2.2.3                   | v2.2.0 or higher       |
 
 ## Documentation
 
