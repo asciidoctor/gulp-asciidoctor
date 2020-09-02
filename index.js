@@ -25,7 +25,7 @@ module.exports = function (theOptions = {}) {
   asciidoctorOptions.safe = options.safe || 'unsafe' // unsafe, safe, server or secure
   asciidoctorOptions.doctype = options.doctype || 'article' // book,inline
   asciidoctorOptions.attributes = options.attributes || ['showtitle']
-  asciidoctorOptions.backend = options.backed || 'html5' // defaults to html5
+  asciidoctorOptions.backend = options.backend || 'html5' // defaults to html5
   asciidoctorOptions.doctype = options.doctype || 'article' // defaults to article
 
   if (asciidoctorOptions.standalone === undefined) {
@@ -36,7 +36,6 @@ module.exports = function (theOptions = {}) {
     }
   }
   delete asciidoctorOptions.header_footer
-
   // Extension is only used by gulp
   delete asciidoctorOptions.extension
   delete asciidoctorOptions.to_file
@@ -83,7 +82,6 @@ module.exports = function (theOptions = {}) {
 
     // just pipe data next, or just do nothing to process file later in flushFunction
     // never forget callback to indicate that the file has been processed.
-
     var data = asciidoctor.convert(file.contents.toString(),
       asciidoctorOptions)
 
