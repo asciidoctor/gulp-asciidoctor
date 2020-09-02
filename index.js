@@ -5,6 +5,9 @@ var through = require('through-gulp')
 var PluginError = require('plugin-error')
 var replaceExt = require('replace-ext')
 var asciidoctor = require('@asciidoctor/core')()
+const docbookConverter = require('@asciidoctor/docbook-converter')
+
+docbookConverter.register()
 
 /**
  * Test is the given object is a class
@@ -20,6 +23,9 @@ module.exports = function (theOptions = {}) {
 
   // default config
   var extension = options.extension || '.html'
+  if (options.backend === 'docbook5') {
+    extension = options.extension || '.xml'
+  }
 
   // AsciiDoctor options
   asciidoctorOptions.safe = options.safe || 'unsafe' // unsafe, safe, server or secure

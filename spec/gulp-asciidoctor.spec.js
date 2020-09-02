@@ -30,6 +30,31 @@ describe('Test fucntionality', function () {
     stream.end()
   })
 
+  it('should compile asciidoctor to Docbook5', function (cb) {
+    var stream = asciidoctor({
+      backend: 'docbook5',
+      doctype: 'inline',
+      standalone: false,
+      attributes: ['showtitle']
+    })
+
+    stream.once('data', function (file) {
+      expect(file.relative).to.equal('fixture.xml')
+      expect(file.contents.toString()).to.equal(
+        '<emphasis role="strong">foo</emphasis>'
+      )
+    })
+
+    stream.on('end', cb)
+
+    stream.write(new Vinyl({
+      path: 'fixture.adoc',
+      contents: Buffer.from('*foo*')
+    }))
+
+    stream.end()
+  })
+
   it('should run ok without args', function (cb) {
     var stream = asciidoctor()
 
