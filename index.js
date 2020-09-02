@@ -25,6 +25,7 @@ module.exports = function (theOptions = {}) {
   asciidoctorOptions.safe = options.safe || 'unsafe' // unsafe, safe, server or secure
   asciidoctorOptions.doctype = options.doctype || 'article' // book,inline
   asciidoctorOptions.attributes = options.attributes || ['showtitle']
+  // Fixed typo for issue #29
   asciidoctorOptions.backend = options.backend || 'html5' // defaults to html5
   asciidoctorOptions.doctype = options.doctype || 'article' // defaults to article
 
