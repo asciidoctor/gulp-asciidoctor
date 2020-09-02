@@ -94,7 +94,7 @@ There are options that tweak the behaviour of the Gulp plugin itself and options
 
 The following options can be used to configure the Gulp plugin:
 
-`extension`:: Sets the output extension of the plugin. Defaults to '.html'
+`extension`:: Sets the output extension of the plugin. Defaults to '.html' if backend is 'html5' or undefined. Defaults to '.xml' if backend is 'docbook5'
 `cnv`:: Sets a custom converter that should be used for processing. Defaults to 'undefined'.
 
 == AsciiDoctor Options
@@ -112,7 +112,7 @@ will be removed, since they do not make sense in a gulp processing chain.
 
 If not set, the following options will be set to the default values described here
 
-`backend`:: Sets the converter backend to use. Defaults to 'html5'
+`backend`:: Sets the converter backend to use. Defaults to 'html5'. As for now, only 'html5' and 'docbook5' is supported.
 `base_dir`:: The base directory for resolving relative resources. Defaults to the directory of the currently processed file
 `doctype`:: The doctype. May be 'article', 'book' or 'inline'. Defaults to 'article'
 `safe`:: The safe mode to use. May be 'unsafe', 'safe', 'server' or 'secure'. Defaults to 'unsafe'
@@ -133,7 +133,7 @@ The 'old' option 'header_footer' will be skipped in favor of the new option 'sta
 * If both 'header_footer' and 'standalone' are set, the option 'header_footer' will be stripped.
 
 == Changelog
-
+- v2.2.4: Backend 'docbook5' is now supported
 - V2.2.0: upgrade to asciidoctor 2.2.0
 - V2.1.1: upgrade to asciidoctor 2.1.1, mocha 7.1.0 and replaced gulp-util with replace-ext and plugin-error
 - v1.5.5-4: upgrade asciidoctor.js to version 1.5.5-4 and use version consistent with asciidoctor.js.
